@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	24.08.3
+%define		kdeappsver	24.12.0
 %define		kframever	5.94.0
 %define		qtver		5.15.2
 %define		kaname		kolourpaint
 Summary:	kolourpaint
 Name:		ka6-%{kaname}
-Version:	24.08.3
+Version:	24.12.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Applications
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	2aca607a34e5236c3bd36d81efb90c1e
+# Source0-md5:	d155cf6abd03c08b33a1b6d7b3a855e9
 URL:		http://www.kde.org/
 BuildRequires:	Qt6Core-devel >= %{qtver}
 BuildRequires:	Qt6Gui-devel >= 5.11.1
@@ -36,6 +36,7 @@ BuildRequires:	rpmbuild(macros) >= 1.164
 BuildRequires:	shared-mime-info
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
+Requires:	%{name}-data = %{version}-%{release}
 Obsoletes:	ka5-%{kaname} < %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,6 +55,19 @@ zadań edycji obrazków.
 
 Właściwości: Wsparcie dla rysowania różnych kształtów - linii,
 prostokątów, zaokrąglonych prostokątów, owali i wieloboków.
+
+%package data
+Summary:	Data files for %{kaname}
+Summary(pl.UTF-8):	Dane dla %{kaname}
+Group:		X11/Applications
+Obsoletes:	ka5-%{kaname}-data < %{version}
+BuildArch:	noarch
+
+%description data
+Data files for %{kaname}.
+
+%description data -l pl.UTF-8
+Dane dla %{kaname}.
 
 %prep
 %setup -q -n %{kaname}-%{version}
@@ -85,11 +99,13 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{kaname}.lang
+%files 
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/kolourpaint
 %{_libdir}/libkolourpaint_lgpl.so
 %attr(755,root,root) %{_libdir}/libkolourpaint_lgpl.so.5
+
+%files data -f %{kaname}.lang
 %{_desktopdir}/org.kde.kolourpaint.desktop
 %{_iconsdir}/hicolor/*x*/apps/kolourpaint.png
 %{_iconsdir}/hicolor/scalable/apps/kolourpaint.svgz
