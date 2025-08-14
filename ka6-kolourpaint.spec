@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	25.04.3
+%define		kdeappsver	25.08.0
 %define		kframever	5.94.0
 %define		qtver		5.15.2
 %define		kaname		kolourpaint
 Summary:	kolourpaint
 Name:		ka6-%{kaname}
-Version:	25.04.3
+Version:	25.08.0
 Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Applications
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	19c45617b4fb129ef4d0a7dabeb80f0a
+# Source0-md5:	7fc786d16d33fcc7c9ce114cfd3d6b70
 URL:		http://www.kde.org/
 BuildRequires:	Qt6Core-devel >= %{qtver}
 BuildRequires:	Qt6Gui-devel >= 5.11.1
@@ -49,9 +49,9 @@ Features: Support for drawing various shapes - lines, rectangles,
 rounded rectangles, ovals and polygons.
 
 %description -l pl.UTF-8
-KolourPaint jest prostym programem do szybkiego tworzenia
-rastrowych obrazków. Jest przydatny do retuszowania i prostych
-zadań edycji obrazków.
+KolourPaint jest prostym programem do szybkiego tworzenia rastrowych
+obrazków. Jest przydatny do retuszowania i prostych zadań edycji
+obrazków.
 
 Właściwości: Wsparcie dla rysowania różnych kształtów - linii,
 prostokątów, zaokrąglonych prostokątów, owali i wieloboków.
@@ -106,13 +106,19 @@ rm -rf $RPM_BUILD_ROOT
 %postun data
 %update_desktop_database_postun
 
-%files 
+%files
 %defattr(644,root,root,755)
+/etc/xdg/colors/40.colors
+/etc/xdg/colors/Oxygen.colors
+/etc/xdg/colors/Rainbow.colors
+/etc/xdg/colors/Royal.colors
+/etc/xdg/colors/Web.colors
 %attr(755,root,root) %{_bindir}/kolourpaint
 %{_libdir}/libkolourpaint_lgpl.so
 %attr(755,root,root) %{_libdir}/libkolourpaint_lgpl.so.5
 
 %files data -f %{kaname}.lang
+%defattr(644,root,root,755)
 %{_desktopdir}/org.kde.kolourpaint.desktop
 %{_iconsdir}/hicolor/*x*/apps/kolourpaint.png
 %{_iconsdir}/hicolor/scalable/apps/kolourpaint.svgz
